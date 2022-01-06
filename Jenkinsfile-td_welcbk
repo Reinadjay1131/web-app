@@ -16,7 +16,13 @@ node{
         deploy adapters: [tomcat9(credentialsId: 'TomCat-Credentials', path: '', url: 'http://3.86.105.221:8080/')], contextPath: null, war: 'target/*.war'
     }
     stage('6.EmailNotification'){
-    
+        emailext body: '''Hello Everyone,
+
+Build from td_welcbk pipeline project
+
+Landmark Technologies
+
+''', subject: 'Build status', to: 'developers'
 
     }
     stage('Approval'){
@@ -24,7 +30,7 @@ node{
             input message: 'please verify and approve'
         }
     }
-    stage('prod-Deploy'){
+    stage('Prod-Deploy'){
         deploy adapters: [tomcat9(credentialsId: 'TomCat-Credentials', path: '', url: 'http://3.86.105.221:8080/')], contextPath: null, war: 'target/*.war'
         
     }
